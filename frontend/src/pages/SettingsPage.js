@@ -49,6 +49,11 @@ export default function SettingsPage(props) {
     const settings = props.settings
     const setSettings = props.setSettings
     const classes = useStyles();
+    const GetLocation = () => {
+        navigator.geolocation.getCurrentPosition((position) => {
+            setSettings(prevState => ({ ...prevState, stationLong: parseFloat(position.coords.longitude).toFixed(4), stationLat: parseFloat(position.coords.latitude).toFixed(4) }))
+        })
+    }
     const GetCoord = () => {
         const map = useMapEvents({
             click: (e) => {
@@ -94,6 +99,11 @@ export default function SettingsPage(props) {
         }));
         setSettings((prevSetting) => ({ ...prevSetting, satList: newSatList }))
     }
+    useEffect(() => {
+        GetLocation()
+        return () => {
+        }
+    }, [])
     const UserStatus = () => {
         const [logInFormState, setLogInFormState] = useState(false);
         const [signUpFormState, setSignUpFormState] = useState(false);
@@ -269,6 +279,12 @@ export default function SettingsPage(props) {
                                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                                         />
                                     </MapContainer>
+                                    <Button
+                                        variant='contained'
+                                        onClick={() => GetLocation()}
+                                        style={{ margin: 5, }}>
+                                        Get my location
+                                    </Button>
                                     <div>
                                         <TextField
                                             id="Longitude-setting"
@@ -335,8 +351,6 @@ export default function SettingsPage(props) {
                                             onChange={e => setSettings(prevState => ({ ...prevState, predHours: e.target.value }))}
                                             variant="filled"
                                         />
-                                    </div>
-                                    <div>
                                         <TextField
                                             id="elevation-setting"
                                             label="Minimum Elevation (&#176;)"
@@ -348,19 +362,20 @@ export default function SettingsPage(props) {
                                             variant="filled"
                                         />
                                     </div>
-                                    <Tooltip title='Must be logged in'>
-                                        <Button
-                                            type='submit'
-                                            variant='contained'
-                                            name='database'
-                                            disabled={props.userSession === null
-                                                ? (true)
-                                                : (false)}
-                                            style={{ margin: 5, marginLeft: 0 }}>
-                                            Save settings
-                                        </Button>
-                                    </Tooltip>
+
                                     <div>
+                                        <Tooltip title='Must be logged in'>
+                                            <Button
+                                                type='submit'
+                                                variant='contained'
+                                                name='database'
+                                                disabled={props.userSession === null
+                                                    ? (true)
+                                                    : (false)}
+                                                style={{ margin: 5, marginLeft: 0 }}>
+                                                Save settings
+                                            </Button>
+                                        </Tooltip>
                                         <Button
                                             type='submit'
                                             variant="contained"

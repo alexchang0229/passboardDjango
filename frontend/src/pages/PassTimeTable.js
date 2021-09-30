@@ -100,10 +100,10 @@ const TableRowFunc = (props) => {
         return `${completed ? ("+") : ("-")}${("0" + hours).slice(-2)}:${("0" + minutes).slice(-2)}:${("0" + seconds).slice(-2)}`;
     };
     const csvHeaders = ['Unix time (s)', 'Elevation (deg)', 'Azimuth (deg)']
-    const handleCSVDownload = async() => {
-         await axiosInstance.post('/get_path_csv/', rowdata.start)
+    const handleCSVDownload = async () => {
+        await axiosInstance.post('/get_path_csv/', rowdata.start)
             .then(res =>
-            setcsvData(res.data))
+                setcsvData(res.data))
         csvLink.current.link.click()
     }
     return (
@@ -201,7 +201,7 @@ const TableRowFunc = (props) => {
                                                 inset: '0%',
                                                 width: '100%'
                                             }}>
-                                                <OrbitMap aostime={rowdata.start} />
+                                                <OrbitMap orbitnum={rowdata.orbitnum} />
                                             </div>
                                         </div>
                                     </TableCell>

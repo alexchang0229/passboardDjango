@@ -252,10 +252,12 @@ class saveToSession(APIView):
 
 class map_view_info(APIView):
     def post(self, request):
-        passAOS = request.data
+        passOrbitNum = request.data
         passsorted = np.array(request.session['passesSorted'])
-        aosList = [aos['start'] for aos in passsorted]
-        passIndex = aosList.index(passAOS)
+        orbitList = [aos['orbitnum'] for aos in passsorted]
+        print(passOrbitNum)
+        print(orbitList)
+        passIndex = orbitList.index(passOrbitNum)
         aosCoord, losCoord, stationCoord = calc_map_coords(
             passsorted, passIndex, request.user.username, request.session)
         mapinfo = [aosCoord, losCoord, stationCoord]

@@ -16,9 +16,9 @@ const geoUrl = mapJson
 export default function OrbitMap(props) {
     const [mapCoords, setMapCoords] = useState(false)
     useEffect(() => {
-        axiosInstance.post('/mapviewInfo/', props.aostime)
+        axiosInstance.post('/mapviewInfo/', props.orbitnum)
             .then(res => setMapCoords(res.data))
-    }, [props.aostime])
+    }, [props.orbitnum])
     return (
         <React.Fragment>
             {mapCoords === false
