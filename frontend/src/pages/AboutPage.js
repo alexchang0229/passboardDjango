@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid, Paper } from '@material-ui/core';
 import LinkedInButton from '../assets/LinkedIn-Button.png'
 import Instructions_picture from '../assets/instructions.png'
-
+import github_picture from '../assets/githubicon.png'
 
 
 export default function AboutPage() {
@@ -19,7 +19,7 @@ export default function AboutPage() {
                     width: '100%',
                 }}>
                 <Grid item md={7} sm={12} >
-                    <Paper>
+                    <Paper style={{ padding: "5%" }}>
                         <h1>About</h1>
                         <img src={Instructions_picture} alt="Instructions" style={{
                             maxWidth: '100%',
@@ -27,7 +27,10 @@ export default function AboutPage() {
                         }} />
                         <p>This app was built by Alex Chang</p>
                         <a href="https://www.linkedin.com/in/alexyuchang/" target="_blank" rel="noreferrer">
-                            <img src={LinkedInButton} alt="LinkedIn Icon" height={100} />
+                            <img src={LinkedInButton} alt="LinkedIn Icon" height={80} style={{ marginRight: '5%' }} />
+                        </a>
+                        <a href="https://github.com/alexchang0229/passboardDjango" target="_blank" rel="noreferrer">
+                            <img src={github_picture} alt="Github Icon" height={80} />
                         </a>
                     </Paper>
                 </Grid>

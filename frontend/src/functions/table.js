@@ -103,7 +103,7 @@ export default function Table(props) {
                                             type="number"
                                             InputLabelProps={{ shrink: true }}
                                             onInput={(e) => {
-                                                e.target.value = e.target.value.toString().slice(0, 5)
+                                                e.target.value = Math.max(0, parseInt(e.target.value)).toString().slice(0, 5)
                                             }}
                                             onChange={(e) => {
                                                 var newlist = list
