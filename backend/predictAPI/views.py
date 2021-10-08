@@ -71,6 +71,7 @@ def predict(settings):
     # This for loop goes through each satellite and finds passes over the
     # station, passe information for all satellites are stored in the 'passes' array
     passIndex = 0
+    print(satList)
     for i, satloop in enumerate(satList):
         t_temp, events_temp = satellites[i].find_events(
             stationLocation, t0, t1, altitude_degrees=minAltitudeDegrees)
@@ -267,18 +268,21 @@ class map_view_info(APIView):
 class passData_to_react(APIView):
     def get(self, request):
         try:
-            settings = request.session['setting']
-        except:
             try:
-                settings = user_setting.objects.get(
-                    username=request.user.username).custom_settings
+                settings = request.session['setting']
             except:
-                settings = user_setting.objects.get(
-                    username='default').custom_settings
-        passesSorted = predict(settings)
-        request.session['passesSorted'] = passesSorted
+                try:
+                    settings = user_setting.objects.get(
+                        username=request.user.username).custom_settings
+                except:
+                    settings = user_setting.objects.get(
+                        username='default').custom_settings
+            passesSorted = predict(settings)
+            request.session['passesSorted'] = passesSorted
 
-        return Response(data=passesSorted, status=status.HTTP_200_OK)
+            return Response(data=passesSorted, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(data=e, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class settings_to_react(APIView):

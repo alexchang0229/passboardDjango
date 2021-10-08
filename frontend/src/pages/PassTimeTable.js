@@ -231,7 +231,7 @@ export default function PassTimeTable(props) {
         setTimeout(() => {
             axiosInstance('passData/').then(res => {
                 props.setPassData(res.data);
-            }).catch(() => alert('Error fetching data from flask server.'));
+            }).catch((error) => console.log(error));
         }, 30000)
     }, [props])
     const classes = useStyles();
