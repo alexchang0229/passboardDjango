@@ -71,7 +71,10 @@ def predict(settings):
     # This for loop goes through each satellite and finds passes over the
     # station, passe information for all satellites are stored in the 'passes' array
     passIndex = 0
-    print(satList)
+    print(stationLocation)
+    print(t0)
+    print(t1)
+    print(minAltitudeDegrees)
     for i, satloop in enumerate(satList):
         t_temp, events_temp = satellites[i].find_events(
             stationLocation, t0, t1, altitude_degrees=minAltitudeDegrees)
