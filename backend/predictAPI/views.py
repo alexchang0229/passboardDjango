@@ -71,10 +71,7 @@ def predict(settings):
     # This for loop goes through each satellite and finds passes over the
     # station, passe information for all satellites are stored in the 'passes' array
     passIndex = 0
-    print(stationLocation)
-    print(t0)
-    print(t1)
-    print(minAltitudeDegrees)
+
     for i, satloop in enumerate(satList):
         t_temp, events_temp = satellites[i].find_events(
             stationLocation, t0, t1, altitude_degrees=minAltitudeDegrees)
@@ -234,6 +231,7 @@ class DiscardSession(APIView):
 class saveToSession(APIView):
     def post(self, request):
         newSettings = request.data
+        print(newSettings)
         idList = [newSettings['satList'][sats]['NORADid']
                   for sats in request.data['satList']]
         satellites, makeSatError = make_sats_from_id(idList)
@@ -259,8 +257,6 @@ class map_view_info(APIView):
         passOrbitNum = request.data
         passsorted = np.array(request.session['passesSorted'])
         orbitList = [aos['orbitnum'] for aos in passsorted]
-        print(passOrbitNum)
-        print(orbitList)
         passIndex = orbitList.index(passOrbitNum)
         aosCoord, losCoord, stationCoord = calc_map_coords(
             passsorted, passIndex, request.user.username, request.session)
@@ -366,7 +362,7 @@ class userInfo(APIView):
             user = request.session['username']
             return Response(data=user, status=status.HTTP_200_OK)
         except:
-            return Response(data={None}, status=status.HTTP_204_NO_CONTENT)
+            return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class logOut(APIView):

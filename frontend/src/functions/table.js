@@ -35,8 +35,7 @@ const getListStyle = isDraggingOver => ({
 });
 
 export default function Table(props) {
-    const [list, setlist] = useState(Object.values(props.settingIn.satList));
-
+    const [list, setlist] = useState(false);
     useEffect(() => {
         setlist(Object.values(props.settingIn.satList))
     }, [props.settingIn])

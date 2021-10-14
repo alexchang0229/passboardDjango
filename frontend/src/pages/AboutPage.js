@@ -1,6 +1,6 @@
 import React from 'react'
 import { Grid, Paper } from '@material-ui/core';
-import LinkedInButton from '../assets/LinkedIn-Button.png'
+import LinkedInButton from '../assets/linkedin-button.png'
 import Instructions_picture from '../assets/instructions.png'
 import github_picture from '../assets/githubicon.png'
 

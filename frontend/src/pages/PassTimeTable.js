@@ -279,7 +279,7 @@ export default function PassTimeTable(props) {
                 }}
             >
                 <Grid item md={7} sm={12} className={classes.grid}>
-                    {props.passData === false ? (<div>Waiting for passData from FlaskAPI...</div>) : (
+                    {props.passData === false ? (<div>Waiting for data from server...</div>) : (
                         <TableContainer component={Paper}>
                             <Table aria-label="simple table">
                                 <TableHead>
