@@ -75,6 +75,8 @@ def predict(settings):
     for i, satloop in enumerate(satList):
         t_temp, events_temp = satellites[i].find_events(
             stationLocation, t0, t1, altitude_degrees=minAltitudeDegrees)
+        if len(events_temp) == 0:
+            continue
         # find event returns [0: AOS, 1: PEAK, 2: LOS, 0: AOS ... ]
         t_AOSLOS = np.delete(t_temp, np.where(events_temp == 1))
 
@@ -128,7 +130,6 @@ def predict(settings):
                 True
             }
             passIndex = passIndex + 1
-
     minSecBetweenPass = 0
     # Sort passes by AOS time
     passSortKeys = sorted(passes, key=lambda x: passes.get(x).get('start'))
@@ -231,7 +232,6 @@ class DiscardSession(APIView):
 class saveToSession(APIView):
     def post(self, request):
         newSettings = request.data
-        print(newSettings)
         idList = [newSettings['satList'][sats]['NORADid']
                   for sats in request.data['satList']]
         satellites, makeSatError = make_sats_from_id(idList)

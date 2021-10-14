@@ -99,11 +99,7 @@ export default function SettingsPage(props) {
         }));
         setSettings((prevSetting) => ({ ...prevSetting, satList: newSatList }))
     }
-    useEffect(() => {
-        GetLocation()
-        return () => {
-        }
-    }, [])
+
     const UserStatus = () => {
         const [logInFormState, setLogInFormState] = useState(false);
         const [signUpFormState, setSignUpFormState] = useState(false);
