@@ -29,7 +29,7 @@ def make_sats_from_id(idList):
         except:
             try:
                 # Get new TLEs from Celestrak
-                url = 'https://celestrak.com/satcat/tle.php?CATNR={}'.format(
+                url = 'https://celestrak.com/NORAD/elements/gp.php?CATNR={}'.format(
                     SatID)
                 response = requests.get(url)
                 TLE = response.content.decode('utf-8').splitlines()

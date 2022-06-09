@@ -22,6 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
 SECRET_KEY = os.environ['passboardsecretkey']
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -82,8 +83,8 @@ DATABASES = {
     'default': {
         # Heroku postgres database
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ['passboard_db_name'],
-        'USER': os.environ['passboard_db_user'],
+        'NAME': "ddi7snm80h1aub",
+        'USER': "nivvejrimvmphv",
         'PASSWORD': os.environ['passboard_db_password'],
         'HOST': 'ec2-54-236-137-173.compute-1.amazonaws.com',
         'PORT': '5432',
