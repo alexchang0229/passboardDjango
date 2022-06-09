@@ -71,13 +71,12 @@ def predict(settings):
     # This for loop goes through each satellite and finds passes over the
     # station, passe information for all satellites are stored in the 'passes' array
     passIndex = 0
-    print(stationLocation)
-    print(t0)
-    print(t1)
-    print(minAltitudeDegrees)
+
     for i, satloop in enumerate(satList):
         t_temp, events_temp = satellites[i].find_events(
             stationLocation, t0, t1, altitude_degrees=minAltitudeDegrees)
+        if len(events_temp) == 0:
+            continue
         # find event returns [0: AOS, 1: PEAK, 2: LOS, 0: AOS ... ]
         t_AOSLOS = np.delete(t_temp, np.where(events_temp == 1))
 
@@ -131,7 +130,6 @@ def predict(settings):
                 True
             }
             passIndex = passIndex + 1
-
     minSecBetweenPass = 0
     # Sort passes by AOS time
     passSortKeys = sorted(passes, key=lambda x: passes.get(x).get('start'))
@@ -259,8 +257,6 @@ class map_view_info(APIView):
         passOrbitNum = request.data
         passsorted = np.array(request.session['passesSorted'])
         orbitList = [aos['orbitnum'] for aos in passsorted]
-        print(passOrbitNum)
-        print(orbitList)
         passIndex = orbitList.index(passOrbitNum)
         aosCoord, losCoord, stationCoord = calc_map_coords(
             passsorted, passIndex, request.user.username, request.session)
@@ -366,7 +362,7 @@ class userInfo(APIView):
             user = request.session['username']
             return Response(data=user, status=status.HTTP_200_OK)
         except:
-            return Response(data={None}, status=status.HTTP_204_NO_CONTENT)
+            return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class logOut(APIView):

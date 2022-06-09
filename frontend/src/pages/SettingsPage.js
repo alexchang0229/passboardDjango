@@ -99,11 +99,7 @@ export default function SettingsPage(props) {
         }));
         setSettings((prevSetting) => ({ ...prevSetting, satList: newSatList }))
     }
-    useEffect(() => {
-        GetLocation()
-        return () => {
-        }
-    }, [])
+
     const UserStatus = () => {
         const [logInFormState, setLogInFormState] = useState(false);
         const [signUpFormState, setSignUpFormState] = useState(false);
@@ -246,8 +242,9 @@ export default function SettingsPage(props) {
                                     </h4>
                                     <p>NORAD IDs can be found at <a href="https://celestrak.com/satcat/search.php">Celestrak</a></p>
                                 </Box>
-
-                                <Table deleteSat={deleteSat} settingIn={settings} setSettings={setSettings} />
+                                {Object.keys(settings).length < 3 ? null
+                                    : <Table deleteSat={deleteSat} settingIn={settings} setSettings={setSettings} />
+                                }
                             </Box>
                         </Paper>
                     </Grid>

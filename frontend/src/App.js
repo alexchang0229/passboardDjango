@@ -26,7 +26,7 @@ function App() {
       setPassData(data);
     }).catch((e) => {
       console.log(e)
-      alert('Error fetching data from flask server.')
+      alert('Error fetching data from server.')
     });
     fetch('/api/settings/').then(res => res.json()).then(data => {
       setSettings(data);
